@@ -1,351 +1,460 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2865
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Rider's King - Riyadh</title>
+    <style>
+        :root {
+            --primary-color: #d92323; /* Red color */
+            --dark-color: #222;
+            --light-color: #f9f9f9;
+            --grey-color: #555;
+            --white: #ffffff;
+            --green: #28a745;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-decoration: none;
+        }
+        header .logo span {
+            color: var(--primary-color);
+        }
+        
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: none; /* Hidden on mobile by default */
+        }
+        .desktop-nav a {
+            color: var(--grey-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+        .desktop-nav a:hover {
+            color: var(--primary-color);
+        }
 
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="en" dir="ltr">\
-<head>\
-    <meta charset="UTF-8">\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <title>Join Rider's King - Riyadh</title>\
-    <style>\
-        :root \{\
-            --primary-color: #d92323; /* Red color */\
-            --dark-color: #222;\
-            --light-color: #f9f9f9;\
-            --grey-color: #555;\
-            --white: #ffffff;\
-            --green: #28a745;\
-        \}\
-        body \{\
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;\
-            margin: 0;\
-            padding: 0;\
-            line-height: 1.6;\
-            background-color: var(--light-color);\
-            color: var(--dark-color);\
-        \}\
-        .container \{\
-            max-width: 1100px;\
-            margin: 0 auto;\
-            padding: 0 20px;\
-        \}\
-        header \{\
-            background: var(--white);\
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);\
-            padding: 15px 0;\
-            position: sticky;\
-            top: 0;\
-            z-index: 100;\
-        \}\
-        header .container \{\
-            display: flex;\
-            justify-content: space-between;\
-            align-items: center;\
-        \}\
-        header .logo \{\
-            font-size: 1.8rem;\
-            font-weight: 700;\
-            color: var(--dark-color);\
-            text-decoration: none;\
-        \}\
-        header .logo span \{\
-            color: var(--primary-color);\
-        \}\
-        nav a \{\
-            color: var(--grey-color);\
-            text-decoration: none;\
-            font-weight: 600;\
-            margin-left: 20px;\
-            transition: color 0.3s ease;\
-        \}\
-        nav a:hover \{\
-            color: var(--primary-color);\
-        \}\
-        .btn \{\
-            background: var(--primary-color);\
-            color: var(--white);\
-            padding: 12px 25px;\
-            text-decoration: none;\
-            border-radius: 5px;\
-            font-weight: 600;\
-            display: inline-block;\
-            transition: background 0.3s ease;\
-        \}\
-        .btn:hover \{\
-            background: #b31d1d;\
-        \}\
-        \
-        /* Hero Section */\
-        .hero \{\
-            background: var(--dark-color);\
-            color: var(--white);\
-            text-align: center;\
-            padding: 100px 20px;\
-        \}\
-        .hero h1 \{\
-            font-size: 3rem;\
-            margin-bottom: 10px;\
-        \}\
-        .hero p \{\
-            font-size: 1.3rem;\
-            margin-bottom: 30px;\
-        \}\
-\
-        /* Sections */\
-        section \{\
-            padding: 60px 0;\
-        \}\
-        section h2 \{\
-            text-align: center;\
-            font-size: 2.5rem;\
-            margin-bottom: 40px;\
-        \}\
-        \
-        /* Earnings Section */\
-        .earnings-grid, .rules-grid \{\
-            display: grid;\
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\
-            gap: 25px;\
-        \}\
-        .card \{\
-            background: var(--white);\
-            border-radius: 8px;\
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);\
-            padding: 30px;\
-            border-top: 5px solid var(--primary-color);\
-        \}\
-        .card.bonus \{\
-            border-top-color: var(--green);\
-        \}\
-        .card h3 \{\
-            font-size: 1.5rem;\
-            margin-top: 0;\
-        \}\
-        .card .price \{\
-            font-size: 2.5rem;\
-            font-weight: 700;\
-            color: var(--primary-color);\
-            margin-bottom: 15px;\
-        \}\
-        .card .price.bonus-price \{\
-            color: var(--green);\
-        \}\
-        .card .price span \{\
-            font-size: 1rem;\
-            font-weight: 400;\
-            color: var(--grey-color);\
-        \}\
-        .card ul \{\
-            padding-left: 20px;\
-            list-style: none;\
-        \}\
-        .card ul li \{\
-            margin-bottom: 10px;\
-            position: relative;\
-        \}\
-        .card ul li::before \{\
-            content: '\uc0\u10003 ';\
-            color: var(--green);\
-            font-weight: 700;\
-            position: absolute;\
-            left: -20px;\
-        \}\
-\
-        /* Rules Section */\
-        #rules \{\
-            background-color: #fdf6f6;\
-        \}\
-        .rule-item \{\
-            display: flex;\
-            align-items: flex-start;\
-            margin-bottom: 20px;\
-        \}\
-        .rule-item .icon \{\
-            font-size: 1.5rem;\
-            margin-right: 15px;\
-            line-height: 1.4;\
-        \}\
-        .rule-item .icon.red \{ color: var(--primary-color); \}\
-        .rule-item .icon.green \{ color: var(--green); \}\
-        \
-        .penalty-box \{\
-            background: var(--white);\
-            border: 2px solid var(--primary-color);\
-            border-radius: 8px;\
-            padding: 20px;\
-        \}\
-        .penalty-box h3 \{\
-            margin-top: 0;\
-            color: var(--primary-color);\
-        \}\
-        .penalty-box p \{\
-            margin-bottom: 0;\
-        \}\
-\
-        /* Apply Section */\
-        #apply \{\
-            text-align: center;\
-        \}\
-        .app-buttons \{\
-            margin-top: 30px;\
-        \}\
-        .app-btn \{\
-            display: inline-block;\
-            background: #000;\
-            color: #fff;\
-            padding: 15px 30px;\
-            margin: 10px;\
-            border-radius: 8px;\
-            text-decoration: none;\
-            font-size: 1.1rem;\
-            font-weight: 600;\
-            width: 200px;\
-        \}\
-        .app-btn.google-play \{\
-            background: #444;\
-        \}\
-        \
-        /* Footer */\
-        footer \{\
-            background: var(--dark-color);\
-            color: var(--white);\
-            text-align: center;\
-            padding: 30px 0;\
-            margin-top: 40px;\
-        \}\
-    </style>\
-</head>\
-<body>\
-\
-    <header>\
-        <div class="container">\
-            <a href="#" class="logo">Rider's <span>King</span></a>\
-            <nav>\
-                <a href="#home">Home</a>\
-                <a href="#earnings">Earnings</a>\
-                <a href="#rules">Requirements</a>\
-                <a href="#apply" class="btn">Apply Now</a>\
-            </nav>\
-        </div>\
-    </header>\
-\
-    <section id="home" class="hero">\
-        <div class="container">\
-            <h1>Become a Top Delivery Rider in Riyadh</h1>\
-            <p>Join Rider's King and maximize your earnings with Jahez, HungerStation, & Keeta.</p>\
-            <a href="#apply" class="btn">Start Earning Today</a>\
-        </div>\
-    </section>\
-\
-    <section id="earnings">\
-        <div class="container">\
-            <h2>Our High-Performance Earning Structure</h2>\
-            <div class="earnings-grid">\
-                <div class="card">\
-                    <h3>Kafala Riders</h3>\
-                    <div class="price">4,800 <span>SAR</span></div>\
-                    <p><strong>Basic Salary</strong> for active riders.</p>\
-                    <ul>\
-                        <li>Requires 99% - 99.99% On-Time rate</li>\
-                        <li>Requires 27+ work days</li>\
-                        <li>Requires 13+ daily delivery average</li>\
-                    </ul>\
-                </div>\
-                <div class="card">\
-                    <h3>Non-Kafala Riders</h3>\
-                    <div class="price">4,000 <span>SAR</span></div>\
-                    <p><strong>Basic Salary</strong> for active riders.</p>\
-                    <ul>\
-                        <li>Requires 99% - 99.99% On-Time rate</li>\
-                        <li>Requires 27+ work days</li>\
-                        <li>Requires 13+ daily delivery average</li>\
-                    </ul>\
-                </div>\
-                <div class="card bonus">\
-                    <h3>Monthly Bonuses</h3>\
-                    <div class="price bonus-price">+1,200 <span>SAR</span></div>\
-                    <p>Earn bonuses on top of your Basic Salary.</p>\
-                    <ul>\
-                        <li><strong>+700 SAR</strong> (100% On-Time & 330 deliveries)</li>\
-                        <li><strong>+1,200 SAR</strong> (100% On-Time & 350 deliveries)</li>\
-                        <li><strong>+10 SAR</strong> for every delivery after 350</li>\
-                    </ul>\
-                </div>\
-            </div>\
-        </div>\
-    </section>\
-\
-    <section id="rules">\
-        <div class="container">\
-            <h2>Rules & Requirements</h2>\
-            <p style="text-align:center; max-width: 800px; margin: -20px auto 40px auto;">To maintain your 'Active' status and Basic Salary, you must follow these rules. Failure to do so will result in an 'Invalid' status (paid 8 SAR per delivery).</p>\
-            \
-            <div class="rules-grid">\
-                <div>\
-                    <h3>Work Schedule</h3>\
-                    <div class="rule-item">\
-                        <span class="icon green">\uc0\u10003 </span>\
-                        <div><strong>27+ Days a Month:</strong> You must be work a minimum of 27 days.</div>\
-                    </div>\
-                    <div class="rule-item">\
-                        <span class="icon green">\uc0\u10003 </span>\
-                        <div><strong>13+ Daily Average:</strong> Maintain an average of 13 or more deliveries per day.</div>\
-                    </div>\
-                    <div class="rule-item">\
-                        <span class="icon red">\uc0\u9940 \u65039 </span>\
-                        <div><strong>No Absences on Weekends:</strong> Thursday, Friday, and Saturday are mandatory work days.</div>\
-                    </div>\
-                    <div class="rule-item">\
-                        <span class="icon green">\uc0\u10003 </span>\
-                        <div><strong>2 Shifts Daily:</strong> Must work a minimum of 2 valid shifts every day.</div>\
-                    </div>\
-                </div>\
-\
-                <div>\
-                    <h3>Performance & Conduct</h3>\
-                    <div class="rule-item">\
-                        <span class="icon red">\uc0\u9940 \u65039 </span>\
-                        <div><strong>Zero Cancellations:</strong> Do not cancel or reject any order.</div>\
-                    </div>\
-                    <div class="rule-item">\
-                        <span class="icon red">\uc0\u9940 \u65039 </span>\
-                        <div><strong>No Cheating:</strong> Do not use VPN, Dabboz, or Fake GPS. This leads to an immediate block.</div>\
-                    </div>\
-                    <div class="rule-item">\
-                        <span class="icon green">\uc0\u10003 </span>\
-                        <div><strong>Location Sharing:</strong> Your location must be shared at all times.</div>\
-                    </div>\
-                </div>\
-            </div>\
-            \
-            <div class="penalty-box" style="margin-top: 40px;">\
-                <h3>\uc0\u55357 \u56628  Very Important: Penalties</h3>\
-                <p>If you cancel or reject an order, a penalty of <strong>50 to 200 SAR per order</strong> will be deducted from your salary.</p>\
-                <p style="margin-top: 10px;">Low-performance riders will be suspended (blocked) automatically. "Rider\'92s King" is not responsible if your ID is terminated by our partners.</p>\
-            </div>\
-        </div>\
-    </section>\
-\
-    <section id="apply">\
-        <div class="container">\
-            <h2>Ready to Join?</h2>\
-            <p>Download the "Rider's King" app to register, upload your documents, and start earning.</p>\
-            <div class="app-buttons">\
-                <a href="#" class="app-btn">Download on the <br> App Store</a>\
-                <a href="#" class="app-btn google-play">Get it on <br> Google Play</a>\
-            </div>\
-        </div>\
-    </section>\
-\
-    <footer>\
-        <div class="container">\
-            <p>&copy; 2025 Rider's King. All rights reserved.</p>\
-        </div>\
-    </footer>\
-\
-</body>\
-</html>}
+        /* Hamburger Menu (Mobile) */
+        .hamburger-menu {
+            display: block;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            color: var(--dark-color);
+        }
+
+        /* Mobile Nav Links (Hidden by default) */
+        .mobile-nav-links {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background: var(--white);
+            position: absolute;
+            top: 68px; /* Height of the header */
+            left: 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .mobile-nav-links a {
+            color: var(--dark-color);
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--light-color);
+        }
+        .mobile-nav-links a:hover {
+            background: var(--light-color);
+        }
+        .mobile-nav-links .btn {
+            margin: 10px 20px;
+            text-align: center;
+        }
+
+        /* This class is added by JavaScript */
+        .mobile-nav-links.active {
+            display: flex;
+        }
+
+        /* Desktop Breakpoint */
+        @media (min-width: 769px) {
+            .desktop-nav {
+                display: block; /* Show desktop nav */
+            }
+            .hamburger-menu {
+                display: none; /* Hide hamburger */
+            }
+            .mobile-nav-links {
+                display: none !important; /* Always hide mobile menu */
+            }
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: var(--white) !important;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #b31d1d;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--dark-color);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 769px) {
+            .hero {
+                padding: 100px 20px;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+        section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+        
+        /* Earnings Section */
+        .earnings-grid, .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column on mobile */
+            gap: 25px;
+        }
+        @media (min-width: 769px) {
+            .earnings-grid, .rules-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Multi-column on desktop */
+            }
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+            border-top: 5px solid var(--primary-color);
+        }
+        .card.bonus {
+            border-top-color: var(--green);
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+        .card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .card .price.bonus-price {
+            color: var(--green);
+        }
+        .card .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--grey-color);
+        }
+        .card ul {
+            padding-left: 20px;
+            list-style: none;
+            margin: 0;
+        }
+        .card ul li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .card ul li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            position: absolute;
+            left: -20px;
+        }
+
+        /* Rules Section */
+        #rules {
+            background-color: #fdf6f6;
+        }
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .rule-item .icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            line-height: 1.4;
+        }
+        .rule-item .icon.red { color: var(--primary-color); }
+        .rule-item .icon.green { color: var(--green); }
+        
+        .penalty-box {
+            background: var(--white);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .penalty-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .penalty-box p {
+            margin-bottom: 0;
+        }
+
+        /* Apply Section */
+        #apply {
+            text-align: center;
+        }
+        .app-buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .app-btn {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 200px;
+        }
+        .app-btn.google-play {
+            background: #444;
+        }
+        @media (min-width: 769px) {
+            .app-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Rider's <span>King</span></a>
+            
+            <nav class="desktop-nav">
+                <a href="#home">Home</a>
+                <a href="#earnings">Earnings</a>
+                <a href="#rules">Requirements</a>
+                <a href="#apply" class="btn">Apply Now</a>
+            </nav>
+            
+            <div class="hamburger-menu">☰</div>
+        </div>
+        
+        <nav class="mobile-nav-links" id="mobileNav">
+            <a href="#home">Home</a>
+            <a href="#earnings">Earnings</a>
+            <a href="#rules">Requirements</a>
+            <a href="#apply" class="btn">Apply Now</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Become a Top Delivery Rider in Riyadh</h1>
+            <p>Join Rider's King and maximize your earnings with Jahez, HungerStation, & Keeta.</p>
+            <a href="#apply" class="btn">Start Earning Today</a>
+        </div>
+    </section>
+
+    <section id="earnings">
+        <div class="container">
+            <h2>Our High-Performance Earning Structure</h2>
+            <div class="earnings-grid">
+                <div class="card">
+                    <h3>Kafala Riders</h3>
+                    <div class="price">4,800 <span>SAR</span></div>
+                    <p><strong>Basic Salary</strong> for active riders.</p>
+                    <ul>
+                        <li>Requires 99% - 99.99% On-Time rate</li>
+                        <li>Requires 27+ work days</li>
+                        <li>Requires 13+ daily delivery average</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Non-Kafala Riders</h3>
+                    <div class="price">4,000 <span>SAR</span></div>
+                    <p><strong>Basic Salary</strong> for active riders.</p>
+                    <ul>
+                        <li>Requires 99% - 99.99% On-Time rate</li>
+                        <li>Requires 27+ work days</li>
+                        <li>Requires 13+ daily delivery average</li>
+                    </ul>
+                </div>
+                <div class="card bonus">
+                    <h3>Monthly Bonuses</h3>
+                    <div class="price bonus-price">+1,200 <span>SAR</span></div>
+                    <p>Earn bonuses on top of your Basic Salary.</p>
+                    <ul>
+                        <li><strong>+700 SAR</strong> (100% On-Time & 330 deliveries)</li>
+                        <li><strong>+1,200 SAR</strong> (100% On-Time & 350 deliveries)</li>
+                        <li><strong>+10 SAR</strong> for every delivery after 350</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rules">
+        <div class="container">
+            <h2>Rules & Requirements</h2>
+            <p style="text-align:center; max-width: 800px; margin: -20px auto 40px auto;">To maintain your 'Active' status and Basic Salary, you must follow these rules. Failure to do so will result in an 'Invalid' status (paid 8 SAR per delivery).</p>
+            
+            <div class="rules-grid">
+                <div>
+                    <h3>Work Schedule</h3>
+                    <div class="rule-item">
+                        <span class="icon green">✓</span>
+                        <div><strong>27+ Days a Month:</strong> You must be work a minimum of 27 days.</div>
+                    </div>
+                    <div class="rule-item">
+                        <span classs="icon green">✓</span>
+                        <div><strong>13+ Daily Average:</strong> Maintain an average of 13 or more deliveries per day.</div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="icon red">⛔️</span>
+                        <div><strong>No Absences on Weekends:</strong> Thursday, Friday, and Saturday are mandatory work days.</div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="icon green">✓</span>
+                        <div><strong>2 Shifts Daily:</strong> Must work a minimum of 2 valid shifts every day.</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Performance & Conduct</h3>
+                    <div class="rule-item">
+                        <span class="icon red">⛔️</span>
+                        <div><strong>Zero Cancellations:</strong> Do not cancel or reject any order.</div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="icon red">⛔️</span>
+                        <div><strong>No Cheating:</strong> Do not use VPN, Dabboz, or Fake GPS. This leads to an immediate block.</div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="icon green">✓</span>
+                        <div><strong>Location Sharing:</strong> Your location must be shared at all times.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="penalty-box" style="margin-top: 40px;">
+                <h3>🔴 Very Important: Penalties</h3>
+                <p>If you cancel or reject an order, a penalty of <strong>50 to 200 SAR per order</strong> will be deducted from your salary.</p>
+                <p style="margin-top: 10px;">Low-performance riders will be suspended (blocked) automatically. "Rider’s King" is not responsible if your ID is terminated by our partners.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="apply">
+        <div class="container">
+            <h2>Ready to Join?</h2>
+            <p>Download the "Rider's King" app to register, upload your documents, and start earning.</p>
+            <div class="app-buttons">
+                <a href="#" class="app-btn">Download on the <br> App Store</a>
+                <a href="#" class="app-btn google-play">Get it on <br> Google Play</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Rider's King. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileNav = document.querySelector('.mobile-nav-links');
+
+            hamburger.addEventListener('click', function() {
+                mobileNav.classList.toggle('active');
+            });
+
+            // Close menu when a link is clicked
+            document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
