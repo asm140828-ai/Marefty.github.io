@@ -1,144 +1,436 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Rider's King - Riyadh</title>
+    <title>MINCO - برنامج حساب تكلفة الاستركشر</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        :root {
-            --primary-color: #d92323; /* Red color */
-            --dark-color: #222;
-            --light-color: #f9f9f9;
-            --grey-color: #555;
-            --white: #ffffff;
-            --green: #28a745;
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #f3f4f6; }
+        .input-group label { display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem; }
+        .input-group input, .input-group select { width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.375rem; background-color: #fff; transition: border-color 0.2s; }
+        .input-group input:focus, .input-group select:focus { outline: none; border-color: #2563eb; ring: 2px solid #2563eb; }
+        .card { background: white; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 1.5rem; }
+        .btn-primary { background-color: #1e3a8a; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 600; transition: background 0.2s; }
+        .btn-primary:hover { background-color: #1e40af; }
+        @media print {
+            .no-print { display: none; }
+            .print-only { display: block; }
+            body { background: white; }
+            .card { box-shadow: none; border: 1px solid #eee; }
         }
-        /* Add smooth scrolling for anchor links */
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white p-4 shadow-lg no-print">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold">MINCO <span class="text-blue-300 text-sm">ALUMINUM & FACADE SYSTEMS</span></h1>
+                <p class="text-xs text-gray-300">Developed for Eng. Richard Alanon</p>
+            </div>
+            <div class="text-left text-sm hidden md:block">
+                <p>التاريخ: <span id="currentDate"></span></p>
+                <p>الموقع: الرياض، المملكة العربية السعودية</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 flex flex-col lg:flex-row gap-6">
         
-        /* Header & Navigation */
-        header {
-            background: var(--white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            text-decoration: none;
-        }
-        header .logo span {
-            color: var(--primary-color);
-        }
-        
-        /* Desktop Navigation */
-        .desktop-nav {
-            display: none; /* Hidden on mobile by default */
-        }
-        .desktop-nav a {
-            color: var(--grey-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 20px;
-            transition: color 0.3s ease;
-        }
-        .desktop-nav a:hover {
-            color: var(--primary-color);
+        <!-- Left Column: Inputs -->
+        <div class="w-full lg:w-1/3 space-y-6 no-print">
+            
+            <!-- Project Details -->
+            <div class="card">
+                <h2 class="text-lg font-bold text-blue-900 mb-4 border-b pb-2"><i class="fas fa-project-diagram ml-2"></i>بيانات الواجهة</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label>العرض (متر)</label>
+                        <input type="number" id="width" value="6.0" step="0.1" oninput="calculate()">
+                    </div>
+                    <div class="input-group">
+                        <label>الارتفاع (متر)</label>
+                        <input type="number" id="height" value="4.0" step="0.1" oninput="calculate()">
+                    </div>
+                    <div class="input-group">
+                        <label>موديول العرض (Mullion Spacing)</label>
+                        <input type="number" id="modW" value="1.2" step="0.05" oninput="calculate()">
+                    </div>
+                    <div class="input-group">
+                        <label>موديول الارتفاع (Transom Spacing)</label>
+                        <input type="number" id="modH" value="2.0" step="0.1" oninput="calculate()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Selection -->
+            <div class="card">
+                <h2 class="text-lg font-bold text-blue-900 mb-4 border-b pb-2"><i class="fas fa-layer-group ml-2"></i>نظام القطاع</h2>
+                <div class="input-group mb-4">
+                    <label>اختر النظام (System)</label>
+                    <select id="systemType" onchange="updateSystemDefaults()">
+                        <option value="sg50_105">SG-50 (105mm - 4.0mm)</option>
+                        <option value="sg50_120">SG-50 (120mm - 4.2mm)</option>
+                        <option value="sg50_75">SG-50 (75mm - 3.0mm)</option>
+                        <option value="smart_112">Smart CW (112mm - 2.8mm)</option>
+                        <option value="custom">مخصص (Custom)</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label>وزن الألمنيوم التقديري (كجم/م طولي)</label>
+                        <input type="number" id="weightPerMeter" value="4.5" step="0.1" oninput="calculate()">
+                        <p class="text-xs text-gray-500 mt-1">*متوسط وزن القائمة والعارضة</p>
+                    </div>
+                    <div class="input-group">
+                        <label>نسبة الهدر (Waste %)</label>
+                        <input type="number" id="wasteFactor" value="10" oninput="calculate()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit Costs -->
+            <div class="card">
+                <h2 class="text-lg font-bold text-blue-900 mb-4 border-b pb-2"><i class="fas fa-coins ml-2"></i>أسعار المواد (ريال سعودي)</h2>
+                <div class="space-y-3">
+                    <div class="input-group flex items-center gap-2">
+                        <div class="flex-1">
+                            <label>سعر كيلو الألمنيوم (شامل دهان/أكسدة)</label>
+                            <input type="number" id="aluPrice" value="32" oninput="calculate()">
+                        </div>
+                        <div class="flex-1">
+                            <label>سعر متر الزجاج (DGU)</label>
+                            <input type="number" id="glassPrice" value="180" oninput="calculate()">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>الإكسسوارات للمتر المربع (سليكون، ربل، براغي)</label>
+                        <input type="number" id="accPrice" value="85" oninput="calculate()">
+                        <p class="text-xs text-gray-500 mt-1">تشمل: Sika/Dow Corning, EPDM, Brackets</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label>مصنعية وتصنيع وتركيب (للمتر المربع)</label>
+                        <input type="number" id="laborPrice" value="150" oninput="calculate()">
+                    </div>
+                    
+                    <div class="input-group pt-2 border-t">
+                        <label class="text-green-700">سعر البيع المستهدف (Target Price) - SAR</label>
+                        <input type="number" id="targetPriceSAR" value="2175" class="bg-green-50 border-green-300" oninput="calculate()">
+                        <p class="text-xs text-gray-500">السعر بالريال السعودي للمتر المربع</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="window.print()" class="btn-primary w-full text-center"><i class="fas fa-print ml-2"></i>طباعة التقرير</button>
+        </div>
+
+        <!-- Right Column: Results & Visualization -->
+        <div class="w-full lg:w-2/3 space-y-6">
+            
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="card bg-blue-50 border-blue-200">
+                    <h3 class="text-blue-800 font-bold text-sm">إجمالي المساحة</h3>
+                    <p class="text-2xl font-bold text-blue-900"><span id="totalArea">0</span> <span class="text-sm">m²</span></p>
+                </div>
+                <div class="card bg-green-50 border-green-200">
+                    <h3 class="text-green-800 font-bold text-sm">التكلفة للمتر المربع</h3>
+                    <p class="text-2xl font-bold text-green-900"><span id="costPerM2">0</span> <span class="text-sm">SAR</span></p>
+                </div>
+                <div class="card bg-yellow-50 border-yellow-200">
+                    <h3 class="text-yellow-800 font-bold text-sm">هامش الربح المتوقع</h3>
+                    <p class="text-2xl font-bold text-yellow-900"><span id="profitMargin">0</span>%</p>
+                </div>
+            </div>
+
+            <!-- Detailed Cost Breakdown -->
+            <div class="card">
+                <h2 class="text-lg font-bold text-gray-800 mb-4">تفاصيل التكلفة (Bill of Quantities)</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-right">
+                        <thead class="bg-gray-100 text-gray-700">
+                            <tr>
+                                <th class="p-3">البند</th>
+                                <th class="p-3">الكمية / الوحدة</th>
+                                <th class="p-3">السعر الفردي</th>
+                                <th class="p-3">الإجمالي (SAR)</th>
+                                <th class="p-3">% من التكلفة</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200" id="costTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                        <tfoot class="bg-gray-50 font-bold">
+                            <tr>
+                                <td colspan="3" class="p-3 text-left">إجمالي تكلفة المشروع (Direct Cost)</td>
+                                <td class="p-3 text-blue-700 text-lg" id="totalProjectCost">0</td>
+                                <td>100%</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Visualization -->
+            <div class="card">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex justify-between">
+                    <span><i class="fas fa-drafting-compass ml-2"></i>معاينة الواجهة (Grid Layout)</span>
+                    <span class="text-sm font-normal text-gray-500" id="gridDetails"></span>
+                </h2>
+                <div class="border border-gray-300 bg-white flex justify-center items-center p-4 overflow-hidden" style="min-height: 300px;">
+                    <canvas id="facadeCanvas"></canvas>
+                </div>
+                <div class="mt-4 grid grid-cols-3 gap-2 text-xs text-center text-gray-600">
+                    <div class="bg-gray-100 p-2 rounded">
+                        <span class="block font-bold text-lg" id="numMullions">0</span>
+                        عدد القوائم (Mullions)
+                    </div>
+                    <div class="bg-gray-100 p-2 rounded">
+                        <span class="block font-bold text-lg" id="numTransoms">0</span>
+                        عدد العوارض (Transoms)
+                    </div>
+                    <div class="bg-gray-100 p-2 rounded">
+                        <span class="block font-bold text-lg" id="numGlass">0</span>
+                        عدد ألواح الزجاج
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="card no-print">
+                <h2 class="text-lg font-bold text-gray-800 mb-4">توزيع التكاليف</h2>
+                <div class="h-64">
+                    <canvas id="costChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Data from MINCO History ---
+        // Converted USD prices to SAR (x3.75)
+        const systemData = {
+            'sg50_105': { weight: 4.8, targetSAR: 2175, depth: 105 }, // $580
+            'sg50_120': { weight: 5.2, targetSAR: 2344, depth: 120 }, // $625
+            'sg50_75':  { weight: 3.8, targetSAR: 1856, depth: 75 },  // $495
+            'smart_112':{ weight: 4.0, targetSAR: 2156, depth: 112 }, // $575
+            'custom':   { weight: 4.5, targetSAR: 1875, depth: 100 }  // $500
+        };
+
+        let myChart = null;
+
+        function init() {
+            const today = new Date();
+            document.getElementById('currentDate').innerText = today.toLocaleDateString('en-SA');
+            calculate();
         }
 
-        /* Hamburger Menu (Mobile) */
-        .hamburger-menu {
-            display: block;
-            font-size: 2rem;
-            cursor: pointer;
-            user-select: none;
-            color: var(--dark-color);
-        }
-
-        /* Mobile Nav Links (Hidden by default) */
-        .mobile-nav-links {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            background: var(--white);
-            position: absolute;
-            top: 68px; /* Height of the header */
-            left: 0;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        }
-        .mobile-nav-links a {
-            color: var(--dark-color);
-            text-decoration: none;
-            padding: 15px 20px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--light-color);
-        }
-        .mobile-nav-links a:hover {
-            background: var(--light-color);
-        }
-        .mobile-nav-links .btn {
-            margin: 10px 20px;
-            text-align: center;
-        }
-
-        /* This class is added by JavaScript */
-        .mobile-nav-links.active {
-            display: flex;
-        }
-
-        /* Desktop Breakpoint */
-        @media (min-width: 769px) {
-            .desktop-nav {
-                display: block; /* Show desktop nav */
+        function updateSystemDefaults() {
+            const sys = document.getElementById('systemType').value;
+            if (systemData[sys]) {
+                document.getElementById('weightPerMeter').value = systemData[sys].weight;
+                document.getElementById('targetPriceSAR').value = systemData[sys].targetSAR;
+                calculate();
             }
-            .hamburger-menu {
-                display: none; /* Hide hamburger */
-            }
-            .mobile-nav-links {
-                display: none !important; /* Always hide mobile menu */
-            }
         }
 
-        .btn {
-            background: var(--primary-color);
-            color: var(--white) !important;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.3s ease;
+        function calculate() {
+            // 1. Get Inputs
+            const W = parseFloat(document.getElementById('width').value) || 0;
+            const H = parseFloat(document.getElementById('height').value) || 0;
+            const modW = parseFloat(document.getElementById('modW').value) || 1.2;
+            const modH = parseFloat(document.getElementById('modH').value) || 2.0;
+            
+            const weightPerM = parseFloat(document.getElementById('weightPerMeter').value) || 0;
+            const wastePct = parseFloat(document.getElementById('wasteFactor').value) || 0;
+            
+            const priceAlu = parseFloat(document.getElementById('aluPrice').value) || 0;
+            const priceGlass = parseFloat(document.getElementById('glassPrice').value) || 0;
+            const priceAcc = parseFloat(document.getElementById('accPrice').value) || 0;
+            const priceLabor = parseFloat(document.getElementById('laborPrice').value) || 0;
+            
+            // Updated: Get Target Price directly in SAR
+            const targetSAR = parseFloat(document.getElementById('targetPriceSAR').value) || 0;
+
+            // 2. Geometry Calculations
+            const Area = W * H;
+            if (Area === 0) return;
+
+            const cols = Math.floor(W / modW) + 1; 
+            const rows = Math.floor(H / modH) + 1; 
+            
+            const numMullions = Math.ceil(W / modW) + 1; 
+            const lenMullions = numMullions * H;
+
+            const numTransomRows = Math.ceil(H / modH) + 1; 
+            const lenTransoms = W * numTransomRows; 
+
+            const totalProfileLen = lenMullions + lenTransoms;
+            const wasteMultiplier = 1 + (wastePct / 100);
+            
+            const totalWeightRaw = totalProfileLen * weightPerM;
+            const totalWeightWithWaste = totalWeightRaw * wasteMultiplier;
+
+            const numPanels = (numMullions - 1) * (numTransomRows - 1);
+
+            // 3. Cost Calculations
+            const costAlu = totalWeightWithWaste * priceAlu;
+            const costGlass = Area * priceGlass * 1.10; 
+            const costAcc = Area * priceAcc; 
+            const costLabor = Area * priceLabor;
+
+            const totalCost = costAlu + costGlass + costAcc + costLabor;
+            const costPerM2 = totalCost / Area;
+
+            // Target Comparison (Direct SAR comparison now)
+            const profit = targetSAR - costPerM2;
+            const margin = (profit / targetSAR) * 100;
+
+            // 4. Update UI Results
+            document.getElementById('totalArea').innerText = Area.toFixed(2);
+            document.getElementById('costPerM2').innerText = costPerM2.toFixed(2);
+            
+            const profitEl = document.getElementById('profitMargin');
+            profitEl.innerText = margin.toFixed(1);
+            
+            // Logic: High margin (>25%) green, Medium (15-25) yellow, Low (<15) red
+            if(margin < 15) {
+                profitEl.className = "text-2xl font-bold text-red-600";
+            } else if (margin < 25) {
+                profitEl.className = "text-2xl font-bold text-yellow-600";
+            } else {
+                profitEl.className = "text-2xl font-bold text-green-600";
+            }
+
+            document.getElementById('totalProjectCost').innerText = Math.round(totalCost).toLocaleString() + " SAR";
+            document.getElementById('numMullions').innerText = numMullions;
+            document.getElementById('numTransoms').innerText = numTransomRows;
+            document.getElementById('numGlass').innerText = Math.max(0, numPanels);
+
+            // 5. Populate Table
+            const tbody = document.getElementById('costTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td class="p-3 border-b">قطاعات ألمنيوم (شامل الهدر ${wastePct}%)</td>
+                    <td class="p-3 border-b">${totalWeightWithWaste.toFixed(1)} kg</td>
+                    <td class="p-3 border-b">${priceAlu}</td>
+                    <td class="p-3 border-b font-bold">${costAlu.toFixed(0)}</td>
+                    <td class="p-3 border-b text-gray-500">${((costAlu/totalCost)*100).toFixed(1)}%</td>
+                </tr>
+                <tr>
+                    <td class="p-3 border-b">زجاج (DGU)</td>
+                    <td class="p-3 border-b">${Area.toFixed(1)} m²</td>
+                    <td class="p-3 border-b">${priceGlass}</td>
+                    <td class="p-3 border-b font-bold">${costGlass.toFixed(0)}</td>
+                    <td class="p-3 border-b text-gray-500">${((costGlass/totalCost)*100).toFixed(1)}%</td>
+                </tr>
+                <tr>
+                    <td class="p-3 border-b">إكسسوارات (سليكون، ربل، براغي)</td>
+                    <td class="p-3 border-b">${Area.toFixed(1)} m²</td>
+                    <td class="p-3 border-b">${priceAcc}</td>
+                    <td class="p-3 border-b font-bold">${costAcc.toFixed(0)}</td>
+                    <td class="p-3 border-b text-gray-500">${((costAcc/totalCost)*100).toFixed(1)}%</td>
+                </tr>
+                <tr>
+                    <td class="p-3 border-b">عمالة وتركيب</td>
+                    <td class="p-3 border-b">${Area.toFixed(1)} m²</td>
+                    <td class="p-3 border-b">${priceLabor}</td>
+                    <td class="p-3 border-b font-bold">${costLabor.toFixed(0)}</td>
+                    <td class="p-3 border-b text-gray-500">${((costLabor/totalCost)*100).toFixed(1)}%</td>
+                </tr>
+            `;
+
+            // 6. Draw Canvas
+            drawGrid(W, H, modW, modH);
+            updateChart(costAlu, costGlass, costAcc, costLabor);
         }
-        .btn:hover {
-            background: #b31d1d;
+
+        function drawGrid(W, H, modW, modH) {
+            const canvas = document.getElementById('facadeCanvas');
+            const ctx = canvas.getContext('2d');
+            const container = canvas.parentElement;
+            
+            // Set canvas size relative to aspect ratio
+            const aspect = W / H;
+            let cWidth = container.clientWidth - 20;
+            let cHeight = cWidth / aspect;
+            
+            if (cHeight > 300) {
+                cHeight = 300;
+                cWidth = cHeight * aspect;
+            }
+
+            canvas.width = cWidth;
+            canvas.height = cHeight;
+
+            // Scaling factor (Meters to Pixels)
+            const scaleX = cWidth / W;
+            const scaleY = cHeight / H;
+
+            // Clear
+            ctx.fillStyle = '#e0f2fe'; // Light blue glass
+            ctx.fillRect(0, 0, cWidth, cHeight);
+            ctx.strokeStyle = '#1e3a8a'; // Dark blue aluminum
+            ctx.lineWidth = 2;
+
+            // Draw Border
+            ctx.strokeRect(0, 0, cWidth, cHeight);
+
+            // Draw Mullions (Vertical)
+            for (let x = modW; x < W; x += modW) {
+                const xPos = x * scaleX;
+                ctx.beginPath();
+                ctx.moveTo(xPos, 0);
+                ctx.lineTo(xPos, cHeight);
+                ctx.stroke();
+            }
+
+            // Draw Transoms (Horizontal)
+            for (let y = modH; y < H; y += modH) {
+                const yPos = y * scaleY;
+                ctx.beginPath();
+                ctx.moveTo(0, yPos);
+                ctx.lineTo(cWidth, yPos);
+                ctx.stroke();
+            }
+            
+            document.getElementById('gridDetails').innerText = `Scale: 1m ≈ ${(scaleX/10).toFixed(0)}px`;
         }
-        
-        /* Hero Section */
-        .hero {
-            background: var(--dark-color);
-            color: var(--white);
-            text-align: center;
+
+        function updateChart(alu, glass, acc, labor) {
+            const ctx = document.getElementById('costChart').getContext('2d');
+            if (myChart) myChart.destroy();
+
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ألمنيوم', 'زجاج', 'إكسسوارات', 'عمالة'],
+                    datasets: [{
+                        data: [alu, glass, acc, labor],
+                        backgroundColor: ['#1e3a8a', '#60a5fa', '#f59e0b', '#10b981'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'left' }
+                    }
+                }
+            });
+        }
+
+        // Run on load
+        window.onload = init;
+    </script>
+</body>
+</html>
